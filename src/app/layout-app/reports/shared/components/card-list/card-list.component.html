@@ -1,0 +1,39 @@
+<rx-card-box
+  class="col-12 mb-3 col-md-4"
+  [text]="'reports.dashboard.topContentList.topHotels' | translate"
+  [icon]="'rx-bed'"
+  [subLabel]="'reports.dashboard.topContentList.byBookings' | translate"
+  [list]="dashboardFacade.hotels$ | async"
+  [isLoading]="dashboardFacade.hotelsLoading$ | async"
+  [noDataMessage]="'reports.dashboard.card.noDataFromDateRange' | translate"
+  link="/analytics/hotels"
+  [linkText]="'reports.dashboard.topContentList.viewAll' | translate"
+  theme="list"
+>
+</rx-card-box>
+<rx-card-box
+  class="col-12 mb-3 col-md-4"
+  [text]="'reports.dashboard.topContentList.topBookers' | translate"
+  [icon]="'rx-users'"
+  [subLabel]="'reports.dashboard.topContentList.byBookings' | translate"
+  [list]="dashboardFacade.users$ | async"
+  [isLoading]="dashboardFacade.userslsLoading$ | async"
+  [noDataMessage]="'reports.dashboard.card.noDataFromDateRange' | translate"
+  link="/analytics/bookers"
+  [linkText]="'reports.dashboard.topContentList.viewAll' | translate"
+  theme="list"
+>
+</rx-card-box>
+<rx-card-box
+  class="col-12 mb-3 col-md-4"
+  [text]="'reports.dashboard.topContentList.topTravelers' | translate"
+  [subLabel]="'reports.dashboard.topContentList.byBookings' | translate"
+  [icon]="'rx-briefcase'"
+  [list]="dashboardFacade.passengers$ | async"
+  [isLoading]="dashboardFacade.passengerslsLoading$ | async"
+  [noDataMessage]="'reports.dashboard.card.noDataFromDateRange' | translate"
+  link="/analytics/traveler"
+  [linkText]="'reports.dashboard.topContentList.viewAll' | translate"
+  theme="list"
+>
+</rx-card-box>

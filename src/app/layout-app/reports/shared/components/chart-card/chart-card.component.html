@@ -1,0 +1,21 @@
+<h4 class="chart-card__title">{{ title }}</h4>
+<rx-loading-spinner
+  class="chart-card__spinner"
+  *ngIf="isLoading"
+></rx-loading-spinner>
+<p
+  class="chart-card__no-data f-size-xs f-color-lighter"
+  *ngIf="!isLoading && !hasData"
+>
+  <img
+    srcset="/assets/images/table/no-data-charts.png"
+    src="/assets/images/table/no-data-charts.png"
+    alt="Graph image"
+  />
+  {{ 'reports.dashboard.card.noDataFromDateRange' | translate }}
+</p>
+<div
+  class="chart-card__content"
+  *ngIf="!isLoading && hasData"
+  [chart]="chartDefinitions"
+></div>

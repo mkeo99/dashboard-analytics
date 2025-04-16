@@ -1,0 +1,13 @@
+<rx-input
+  type="text"
+  name="QuickFilter"
+  [label]="label"
+  [placeholder]="placeholder"
+  [compact]="true"
+  leftIcon="rx-magnifier"
+  [cleanFieldIcon]="true"
+  (keyup)="keyup($event)"
+  (cleanField)="cleanField()"
+  [disabled]="rowCount === 0"
+>
+</rx-input>

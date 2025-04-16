@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="position-fixed" id="sidebar-container">
+      <rx-reports-navigation></rx-reports-navigation>
+    </div>
+
+    <div
+      class="col-12 col-md-12"
+      [ngClass]="
+        !(reportsFacade.isSideMenuExpanded$ | async)
+          ? 'reports__container__menu-collapse col-lg-11 offset-lg-1'
+          : 'reports__container col-lg-10 offset-lg-2'
+      "
+    >
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

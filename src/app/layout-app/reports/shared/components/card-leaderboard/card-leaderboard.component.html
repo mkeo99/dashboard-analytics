@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card__body">
+    <p class="card__title">
+      {{ 'reports.dashboard.topPolicyOffendersList.label' | translate }}
+      <span class="card__sub-label"
+        >({{
+          'reports.dashboard.topPolicyOffendersList.byOverspend' | translate
+        }})</span
+      >
+    </p>
+
+    <div class="card__spinner" *ngIf="isLoading">
+      <rx-loading-spinner></rx-loading-spinner>
+    </div>
+
+    <ng-container *ngIf="!isLoading && !topPolicyOffenders">
+      <p class="card__no-data text-center">
+        {{ 'reports.dashboard.card.noDataFromDateRange' | translate }}
+      </p>
+    </ng-container>
+
+    <ng-container *ngIf="!isLoading && topPolicyOffenders">
+      <ng-container *ngFor="let type of topPolicyOffenders">
+        <ng-container *ngFor="let result of (type | keyvalue)">
+          <p class="card--line-item">
+            <label *ngIf="result.key === topOffendersSummaryBy.booker">{{
+              'reports.dashboard.topPolicyOffendersList.booker' | translate
+            }}</label>
+            <label *ngIf="result.key === topOffendersSummaryBy.hotel">{{
+              'reports.dashboard.topPolicyOffendersList.hotel' | translate
+            }}</label>
+            <label *ngIf="result.key === topOffendersSummaryBy.city">{{
+              'reports.dashboard.topPolicyOffendersList.city' | translate
+            }}</label>
+            <ng-container *ngFor="let item of (result.value | keyvalue)">
+              <span>{{ item.key }}</span>
+              <span class="card__value">{{
+                item.value | currency: currency:'symbol':'1.2-2'
+              }}</span>
+            </ng-container>
+            <ng-container *ngIf="!result.value">{{
+              'reports.dashboard.card.noDataFromDateRange' | translate
+            }}</ng-container>
+          </p>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+
+    <ng-container>
+      <a routerLink="/analytics/compliance">
+        <rx-button
+          flexible="true"
+          buttonClass="link"
+          text="{{
+            'reports.dashboard.topPolicyOffendersList.viewReport' | translate
+          }}"
+        >
+        </rx-button>
+      </a>
+    </ng-container>
+  </div>
+</div>

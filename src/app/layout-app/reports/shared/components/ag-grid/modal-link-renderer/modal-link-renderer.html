@@ -1,0 +1,34 @@
+<a href="#" (click)="onOpenModal($event)">{{params.value}}</a>
+
+<ng-template #modalContent let-c="close">
+  <div class="modal-header">
+    <article class="col-11 row">
+      <article class="col-md-11 d-inline-flex align-items-center">
+        <h3 class="modal-title">{{params.value}}</h3>
+        <ng-container *ngIf="rowData.length > 0">
+          <rx-button
+            buttonClass="primary"
+            text="{{ 'reports.report.export' | translate }}"
+            icon="rx-export"
+            iconPosition="left"
+            (click)="exportData()"
+          >
+          </rx-button>
+        </ng-container>
+      </article>
+    </article>
+    <article class="col-md-1 text-right">
+      <rx-button buttonClass="subtle-circle" (click)="c('Cross click')">
+        <i class="rx-close"></i>
+      </rx-button>
+    </article>
+  </div>
+  <div class="modal-body">
+    <ag-grid-angular
+      class="ag-theme-material"
+      [columnDefs]="columnDefs"
+      [rowData]="rowData"
+    >
+    </ag-grid-angular>
+  </div>
+</ng-template>

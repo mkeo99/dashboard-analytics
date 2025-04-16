@@ -1,0 +1,64 @@
+<section class="col-12 col-md-12">
+  <article class="row px-3 pt-5 pb-3 justify-content-between">
+    <header>
+      <h2>
+        {{
+          'reports.dashboard.heading'
+            | translate: { companyName: configFacade.companyName$ | async }
+        }}
+      </h2>
+      <p class="dashboard__subtitle">
+        {{ 'reports.dashboard.subtitle' | translate }}
+      </p>
+    </header>
+    <rx-datepicker-range-advanced
+      *ngIf="!!(datePickerLocale$ | async)"
+      [locale]="datePickerLocale$ | async"
+      [dateTypeOptions]="dateTypeTranslations$ | async"
+      [dates]="dashboardFacade.dateRange$ | async"
+      [extras]="datePickerExtras"
+      [compact]="true"
+      (dateRangeSelected)="onDateRangeSelected($event)"
+    ></rx-datepicker-range-advanced>
+  </article>
+
+  <!-- Alert messages -->
+  <article *ngIf="!(dashboardFacade.isDashboardLoading$ | async)">
+    <rx-alert
+      *ngIf="(dashboardFacade.error$ | async) as error"
+      type="danger"
+      [message]="error"
+    ></rx-alert>
+  </article>
+
+  <!-- Main Body -->
+  <section>
+    <rx-headlines
+      class="row col-xs-12 p-0"
+      [currency]="dashboardFacade.currency$ | async"
+      [error]="dashboardFacade.error$ | async"
+      [totalSaving]="dashboardFacade.totalSaving$ | async"
+      [totalSpend]="dashboardFacade.totalSpend$ | async"
+      [totalRooms]="dashboardFacade.totalRooms$ | async"
+      [complianceRate]="dashboardFacade.complianceRate$ | async"
+      [loadings]="dashboardFacade.loadings$ | async"
+      [topPolicyOffenders]="dashboardFacade.topPolicyOffenders$ | async"
+      [complianceReportEnabled]="
+        reportsFacade.isComplianceReportEnabled$ | async
+      "
+    >
+    </rx-headlines>
+
+    <rx-card-list class="row col-xs-12 p-0"></rx-card-list>
+
+    <rx-dashboard-charts
+      class="row my-4"
+      [isLoading]="dashboardFacade.chartsIsLoading$ | async"
+      [totalSpendChart]="totalSpendChart$ | async"
+      [averageSpendChart]="averageSpendChart$ | async"
+      [totalBookingsChart]="totalBookingsChart$ | async"
+      [totalTravelersChart]="totalTravelersChart$ | async"
+    >
+    </rx-dashboard-charts>
+  </section>
+</section>

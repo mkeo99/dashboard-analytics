@@ -1,0 +1,13 @@
+<span class="empty-ag-grid-table">
+  <img
+    srcset="/assets/images/table/empty-table@2x.png"
+    src="/assets/images/table/empty-table@2x.png"
+    alt="Stacked paper list image"
+  />
+  <ng-container *ngIf="!hasAnyColumnsVisible"
+    >{{'reports.report.none.noColumnsSelected' | translate}}</ng-container
+  >
+  <ng-container *ngIf="hasAnyColumnsVisible"
+    >{{'reports.report.none.noResults' | translate}}</ng-container
+  >
+</span>

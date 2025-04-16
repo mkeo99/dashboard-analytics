@@ -1,0 +1,62 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+  <!--First row-->
+  <div class="row roomex-pay__group mb-4">
+    <div class="col-3">
+      <rx-input
+        formControlName="merchant"
+        type="text"
+        [label]="'reports.roomexPay.headerName.merchant' | translate"
+        [value]="form.value?.merchant"
+        [compact]="true"
+      >
+      </rx-input>
+    </div>
+    <div class="col-3">
+      <rx-input
+        formControlName="date"
+        type="text"
+        [label]="'reports.roomexPay.headerName.date' | translate"
+        [value]="form.value?.date | date: 'shortDate'"
+        [compact]="true"
+      >
+      </rx-input>
+    </div>
+    <div class="col-3">
+      <rx-input
+        formControlName="totalSpend"
+        type="text"
+        [label]="'reports.roomexPay.headerName.totalSpend' | translate"
+        [value]="form.value?.totalSpend"
+        [compact]="true"
+      >
+      </rx-input>
+    </div>
+    <div class="col-3">
+      <rx-input
+        formControlName="category"
+        type="text"
+        [label]="'reports.roomexPay.headerName.category' | translate"
+        [value]="form.value?.category"
+        [compact]="true"
+      >
+      </rx-input>
+    </div>
+  </div>
+
+  <!--Second row-->
+  <div class="row ">
+    <div class="col-6 roomex-pay__group">
+      <rx-textarea
+        formControlName="notes"
+        type="text"
+        [label]="'reports.roomexPay.headerName.notes' | translate"
+        [value]="form.value?.notes"
+        [disabled]="isDisabled"
+      >
+      </rx-textarea>
+    </div>
+    <div class="col ml-3 roomex-pay__image-wrapper">
+      <img class="roomex-pay__image" [src]="rowData.receipt" />
+    </div>
+  </div>
+</form>

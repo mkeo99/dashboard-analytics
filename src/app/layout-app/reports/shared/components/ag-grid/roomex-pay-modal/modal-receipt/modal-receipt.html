@@ -1,0 +1,23 @@
+<fa-icon
+  *ngIf="!!params?.value"
+  (click)="onOpenModal($event)"
+  [icon]="attachmentIcon"
+  size="lg"
+  [styles]="{'transform': 'rotate(-45deg)'}"
+  class="modal__cta"
+>
+</fa-icon>
+
+<ng-template #modalContent>
+  <rx-modal-content (closeModal)="onCloseModal()">
+    <h3 class="modal-title px-3">
+      {{'reports.roomexPay.modal.title' | translate}}
+    </h3>
+    <div class="modal-body px-5">
+      <rx-roomex-pay-form
+        [rowData]="rowData"
+        [editMode]="false"
+      ></rx-roomex-pay-form>
+    </div>
+  </rx-modal-content>
+</ng-template>

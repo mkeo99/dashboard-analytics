@@ -1,0 +1,56 @@
+<div class="table-actions__group">
+  <rx-quick-filter
+    class="table-actions__quick-filter"
+    (quickFilterChange)="quickFilterChange.emit($event)"
+    [rowCount]="pagination.rowCount"
+    [label]="'reports.report.quickFilter.label' | translate"
+    [placeholder]="'reports.report.quickFilter.placeholder' | translate"
+  ></rx-quick-filter>
+</div>
+
+<div class="table-actions__group">
+  <ng-container *ngIf="showGroupBy">
+    <label class="f-family-semibold"
+      >{{ 'reports.report.groupBy.label' | translate }}:</label
+    >
+    <form [formGroup]="form">
+      <rx-select
+        formControlName="selectedGroup"
+        (ngModelChange)="changeGroupBy.emit()"
+        [options]="groupOptions"
+      >
+      </rx-select>
+    </form>
+  </ng-container>
+
+  <rx-datepicker-range-advanced
+    *ngIf="!!datePickerLocale && datePickerDates"
+    class="table-actions__datepicker"
+    [locale]="datePickerLocale"
+    [dateTypeOptions]="dateTypeOptions"
+    [dates]="datePickerDates"
+    [extras]="datePickerExtras"
+    [compact]="true"
+    (dateRangeSelected)="dateRangeSelected.emit($event)"
+    (dateTypeSelected)="dateTypeSelected.emit($event)"
+  >
+  </rx-datepicker-range-advanced>
+
+  <rx-checkboxes-dropdown
+    class="mx-3"
+    *ngIf="!!columnsFilter"
+    [checkboxes]="columnsFilter"
+    (checkboxesChange)="columnsFilterChange.emit($event)"
+    [compact]="true"
+  ></rx-checkboxes-dropdown>
+
+  <rx-button
+    buttonClass="primary btn-export"
+    text="{{ 'reports.report.export' | translate }}"
+    icon="rx-export"
+    iconPosition="left"
+    [compact]="true"
+    (click)="pagination.rowCount !== 0 && exportData.emit()"
+    [disabled]="pagination.rowCount === 0"
+  ></rx-button>
+</div>

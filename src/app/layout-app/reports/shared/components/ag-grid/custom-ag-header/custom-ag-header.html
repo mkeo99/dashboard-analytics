@@ -1,0 +1,16 @@
+<div class="rx-ag-header__title">{{params.displayName}}</div>
+<div class="rx-ag-header__arrow">
+  <i class="ag-icon" [ngClass]="sortIcon"></i>
+</div>
+<div
+  class="rx-ag-header__filter-button"
+  *ngIf="params.api.getRowNode('0') && params?.enableMenu"
+  #filterButton
+  [ngClass]="{
+    'rx-ag-header__filter-button--visible': filterVisible,
+    'rx-ag-header__filter-button--active': filterActive
+  }"
+  (click)="onFilterButtonClicked($event)"
+>
+  <i class="ag-icon ag-icon-filter"></i>
+</div>

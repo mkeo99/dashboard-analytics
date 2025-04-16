@@ -1,0 +1,71 @@
+<section class="col-12 col-md-12">
+  <article class="row pt-5 pb-1">
+    <h2 class="col-md-12">{{ reportTitle }}</h2>
+    <rx-table-actions
+      *ngIf="!(reportsFacade.isLoading$ | async)"
+      class="col-md-12 "
+      [dateTypeOptions]="dateTypeOptions"
+      [datePickerDates]="reportsFacade.dateRange$ | async"
+      [datePickerLocale]="datePickerLocale$ | async"
+      [columnsFilter]="translatedCheckboxes$ | async"
+      (dateRangeSelected)="onDateRangeSelected($event)"
+      (dateTypeSelected)="onDateTypeSelected($event)"
+      (columnsFilterChange)="onColumnsFilterChange($event)"
+      (exportData)="onExportData()"
+      (quickFilterChange)="onQuickFilterChange($event)"
+      [pagination]="reportsFacade.pagination$ | async"
+    >
+    </rx-table-actions>
+  </article>
+
+  <!-- Alert messages -->
+  <article class="msg-container" *ngIf="!(reportsFacade.isLoading$ | async)">
+    <rx-alert
+      *ngIf="(reportsFacade.error$ | async) as error"
+      type="danger"
+      [message]="error"
+    >
+    </rx-alert>
+    <rx-alert
+      type="info"
+      [title]="'reports.report.screenSizeUX.label' | translate"
+      [message]="'reports.report.screenSizeUX.message' | translate"
+    >
+    </rx-alert>
+  </article>
+
+  <!-- Report Data -->
+  <ng-container *ngIf="!(reportsFacade.isLoading$ | async); else loading">
+    <!-- ag-grid -->
+    <ag-grid-angular
+      #agGrid
+      class="ag-theme-material"
+      [gridOptions]="gridOptions"
+      [columnDefs]="translatedColDef$ | async"
+      [rowData]="reportsFacade.reportRowData$ | async"
+      (gridReady)="onGridReady($event)"
+      [localeText]="localeText$ | async"
+    >
+    </ag-grid-angular>
+
+    <!-- Custom pagination -->
+    <article
+      class="footer"
+      *ngIf="(reportsFacade.pagination$ | async) as pagination"
+    >
+      <rx-pagination-controls
+        (changePageView)="onChangeView($event)"
+        (changePageSize)="onPageSizeChanged($event)"
+        [currentPage]="reportsFacade.filteredPageNum$ | async"
+        [length]="pagination.rowCount"
+        [filteredRows]="reportsFacade.filteredRowCount$ | async"
+        [showPageSizeOptions]="true"
+      >
+      </rx-pagination-controls>
+    </article>
+  </ng-container>
+
+  <ng-template #loading>
+    <rx-table-ghost></rx-table-ghost>
+  </ng-template>
+</section>

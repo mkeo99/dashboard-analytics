@@ -1,0 +1,70 @@
+<article class="pageSize" *ngIf="showPageSizeOptions">
+  <span>{{ 'reports.pagination.itemsPerPage' | translate }}:</span>
+  <select
+    (change)="onPageSizeChanged($event)"
+    [(ngModel)]="pageSize"
+    [ngClass]="{ sm: pageSize <= 10 }"
+    [disabled]="!totalItems"
+  >
+    <option *ngFor="let item of pageSizeOptions" [value]="item">
+      {{ item }}
+    </option>
+  </select>
+  <span class="vertical-bar"
+    >{{ 'reports.pagination.total' | translate }}:
+    <ng-container *ngIf="isFiltering"
+      >{{ totalItems }} {{ 'reports.pagination.of' | translate }} </ng-container
+    >{{ length }}</span
+  >
+</article>
+<ul class="pagination" *ngIf="numberOfPages !== 0">
+  <li>
+    <a [ngClass]="{ disabled: currentPage === 1 }" (click)="goToPageNum(1)"
+      ><i class="rx-first"></i
+    ></a>
+  </li>
+  <li>
+    <a
+      [ngClass]="{ disabled: currentPage === 1 }"
+      (click)="goToPageNum(currentPage - 1)"
+      ><i class="rx-chevron-left"></i
+    ></a>
+  </li>
+
+  <ul class="ngx--controller">
+    <li
+      *ngFor="
+        let item of (range
+          | paginate
+            : {
+                itemsPerPage: pageSize,
+                currentPage: currentPage,
+                totalItems: totalItems
+              })
+      "
+    >
+      {{ item }}
+    </li>
+  </ul>
+  <pagination-controls
+    (pageChange)="goToPageNum($event)"
+    directionLinks="false"
+    maxSize="9"
+  ></pagination-controls>
+
+  <li>
+    <a
+      [ngClass]="{ disabled: currentPage === numberOfPages }"
+      (click)="goToPageNum(currentPage + 1)"
+      ><i class="rx-chevron-right"></i
+    ></a>
+  </li>
+  <li>
+    <a
+      [ngClass]="{ disabled: currentPage === numberOfPages }"
+      (click)="goToPageNum(numberOfPages)"
+      ><i class="rx-last"></i
+    ></a>
+  </li>
+</ul>
+<div class="clearfix"></div>
