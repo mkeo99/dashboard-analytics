@@ -12,6 +12,7 @@ This repo won't run or do anything useful, it's more to show written code for th
 
 ![roomex_dashboard_2](https://github.com/user-attachments/assets/59b863b4-e3ac-49bf-afd5-886e6226c201)
 
+![roomex_reporting](https://github.com/user-attachments/assets/20c46230-9aee-46c0-8745-0041b573d58a)
 
 ###
 
